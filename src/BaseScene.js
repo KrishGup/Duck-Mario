@@ -1,3 +1,5 @@
+import Enemy from './Enemy.js';
+
 class BaseScene extends Phaser.Scene {
     constructor(key) {
         super({ key });
@@ -5,29 +7,28 @@ class BaseScene extends Phaser.Scene {
 
     preload() {
         // Preload common assets
-        this.load.audio('bgm', 'assets/Sounds/bg-music.mp3'); 
+        this.load.audio('death', 'assets/Sounds/win-sound.wav');
         this.load.audio('jump', 'assets/Sounds/jump.wav');
         this.load.audio('quack', 'assets/Sounds/quack.mp3');
+        this.load.audio('win', 'assets/Sounds/win-sound.wav');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
     create() {
-        // Play background music
-        this.bgm = this.sound.add('bgm', { loop: true });
-        this.bgm.play();
+
+        this.enemies = this.add.group();
 
         //bind jump sound
         this.jumpSound = this.sound.add('jump');
-
-        
-        
-
+        //bind win sound
+        this.winSound = this.sound.add('win');
+        this.deathSound = this.sound.add('death');
         // Create a simple platform
         this.platform = this.add.rectangle(3000, 500, 6000, 50, 0x00ff00);
         this.physics.add.existing(this.platform, true); // true makes it static
 
         // Add the duck character
-        this.player = this.add.sprite(50, 315, 'duck');
+        this.player = this.physics.add.sprite(50, 315, 'duck');
         this.player.setScale(0.5);
         this.physics.add.existing(this.player, false);
         this.player.body.setCollideWorldBounds(true);
@@ -67,6 +68,8 @@ class BaseScene extends Phaser.Scene {
 
         // Set camera deadzone to prevent jitter
         this.cameras.main.setDeadzone(this.cameras.main.width * 0.3, this.cameras.main.height);
+
+        this.physics.add.collider(this.player, this.enemies, this.playerHIt, null, this);
     }
 
     update(time, delta) {
@@ -86,12 +89,47 @@ class BaseScene extends Phaser.Scene {
                 console.log('Attack!');
             }
         }
+
+        this.enemies.children.iterate((enemy) => {
+            enemy.update();
+        });
+    }
+
+    addEnemy(x, y, texture, speed) {
+        const enemy = new Enemy(this, x, y, texture, speed);
+        this.enemies.add(enemy);
+    }
+
+    playerHIt(player, enemy) {
+        this.death();
+    }
+
+    death() {
+        this.deathSound.play();
+        this.player.setTint(0xff0000);
+        this.player.setVelocity(0, -300);
+        this.player.setAngularVelocity(360);
+
+        this.time.delayedCall(2000, () => {
+            this.scene.restart();
+        });
+
+        const deathText = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'You Died! Press SPACE to continue', {
+            fontSize: '32px',
+            fill: '#ff0000'
+        }).setOrigin(0.5, 0.5);
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+            deathText.destroy();
+            this.scene.restart();
+        });
     }
 
     reachGoal(player, goal) {
         console.log('Goal reached!');
+        this.sound.play('win');
         // Transition to the next level
-        this.scene.start('Level2');
+        //this.scene.start('Level2');
     }
 }
 
