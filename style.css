@@ -37,6 +37,7 @@ header {
     background-color: var(--primary);
     display: flex;
     justify-content: center;
+    box-shadow: 0 -2px 9px 6px black;
 }
 
 article {
@@ -53,12 +54,15 @@ h1 {
 
 /* ==================== main section ======================= */
 #game {
-
+    width: 60vw;
+    height: 100vh;
+    padding: 1rem;
 }
 
 iframe {
-    width: 60vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 main {
@@ -68,6 +72,7 @@ main {
     background-color: var(--secondary);
     padding-bottom: 5%;
     line-height: 2;
+    overflow: hidden;
 
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
@@ -91,5 +96,10 @@ footer {
     display: flex;
     justify-content: space-evenly;
     list-style-type: none;
-    padding: 2% 0;
+    padding: 1.5rem 0;
+}
+
+/* ======================= media queries ==================== */
+@media screen and (min-width: 600px) {
+    
 }
