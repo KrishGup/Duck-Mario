@@ -25,9 +25,12 @@ class Level1 extends BaseScene {
 
         // Create a goal specific to Level 1
         
-
+        
         // Start the opening story sequence
         this.opening();
+
+        // Add Enemy
+        this.addEnemy(1000, 100, 'raccoon', 100);
     }
 
     opening() {
