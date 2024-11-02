@@ -1,6 +1,31 @@
-body, html {
+*, html {
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
+/* ===================== header section ==================== */
+header {
+    background-color: #14517b;
+}
+
+/* ==================== main section ======================= */
+
+#story {
+    width: 60%;
+}
+
+#game {
+    width: 60%;
+}
+
+iframe {
+    overflow: hidden;
+    width: 50vw;
+    height: 80vh;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
