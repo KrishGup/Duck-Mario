@@ -87,6 +87,7 @@ class BaseScene extends Phaser.Scene {
 
     reachGoal(player, goal) {
         console.log('Goal reached!');
+        this.bgm.stop();
         // Transition to the next level
         this.scene.start('Level2');
     }
