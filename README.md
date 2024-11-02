@@ -1,16 +1,18 @@
 # Duck-Mario
 HACK.COMS 24-Hour Hackathon
- MVP
-Singleplayer game - Build on the Goosetavoo's Favorite
-Duck Mario Plataformer
-Music
-Button to attack
-Button to jump
-Purple Black Gold Color scheme
-Embedded in a website
-Point system.
-Win/loose
-sidescroller
+# MVP
+<ul>
+<li>Singleplayer game - Build on the Goosetavoo's Favorite</li>
+<li>Duck Mario Plataformer</li>
+<li>Music</li>
+<li>Button to attack</li>
+<li>Button to jump</li>
+<li>Purple Black Gold Color scheme</li>
+<li>Embedded in a website</li>
+<li>Point system.</li>
+<li>Win/loose</li>
+<li>sidescroller</li>
+</ul>
 
 
 
