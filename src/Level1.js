@@ -8,6 +8,9 @@ class Level1 extends BaseScene {
     preload() {
         super.preload();
 
+        //bind level 1 specific music
+        this.load.audio('bgm', 'assets/Sounds/bg-music-level-1.mp3'); 
+
         // Preload assets specific to Level 1
         // this.load.image('nest', 'assets/nest.png');
         this.load.image('egg', 'assets/white.png');
@@ -16,6 +19,9 @@ class Level1 extends BaseScene {
 
     create() {
         super.create();
+        // Play background music
+        this.bgm = this.sound.add('bgm', { loop: true });
+        this.bgm.play();
 
         // Create a goal specific to Level 1
         
@@ -88,6 +94,13 @@ class Level1 extends BaseScene {
     update(time, delta) {
        super.update(time, delta);
 
+    }
+
+    reachGoal(player, goal) {
+        super.reachGoal(player, goal);
+        this.disablePlayerMovement();
+        this.bgm.stop();
+        this.scene.start('Level2');
     }
 }
 
