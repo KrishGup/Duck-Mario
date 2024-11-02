@@ -5,16 +5,19 @@ class BaseScene extends Phaser.Scene {
 
     preload() {
         // Preload common assets
-        // this.load.audio('bgm', 'assets/bgm.mp3'); 
-        // this.load.audio('jump', 'assets/jump.mp3');
+        this.load.audio('bgm', 'assets/Sounds/bg-music.mp3'); 
+        this.load.audio('jump', 'assets/Sounds/jump.wav');
         this.load.audio('quack', 'assets/Sounds/quack.mp3');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
     create() {
         // Play background music
-        // this.bgm = this.sound.add('bgm', { loop: true });
-        // this.bgm.play();
+        this.bgm = this.sound.add('bgm', { loop: true });
+        this.bgm.play();
+
+        //bind jump sound
+        this.jumpSound = this.sound.add('jump');
 
         
         
@@ -75,7 +78,7 @@ class BaseScene extends Phaser.Scene {
             // Jump logic
             if (this.jumpKey.isDown && this.player.body.touching.down) {
                 this.player.body.setVelocityY(-300);
-                // this.jumpSound.play();
+                this.jumpSound.play();
             }
             // Attack logic (for now, just log to console)
             if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
