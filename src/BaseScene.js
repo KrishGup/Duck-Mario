@@ -20,11 +20,11 @@ class BaseScene extends Phaser.Scene {
         
 
         // Create a simple platform
-        this.platform = this.add.rectangle(400, 500, 800, 50, 0x00ff00);
+        this.platform = this.add.rectangle(3000, 500, 6000, 50, 0x00ff00);
         this.physics.add.existing(this.platform, true); // true makes it static
 
         // Add the duck character
-        this.player = this.add.sprite(0, 315, 'duck');
+        this.player = this.add.sprite(50, 315, 'duck');
         this.player.setScale(0.5);
         this.physics.add.existing(this.player, false);
         this.player.body.setCollideWorldBounds(true);
@@ -43,6 +43,19 @@ class BaseScene extends Phaser.Scene {
 
         this.quackSound = this.sound.add('quack');
         // this.jumpSound = this.sound.add('jump');
+
+        this.goal = this.add.rectangle(5900, 450, 50, 50, 0x0000ff);
+        this.physics.add.existing(this.goal, true);
+
+        // Enable collision detection between player and goal
+        this.physics.add.overlap(this.player, this.goal, this.reachGoal, null, this);
+
+
+        // Set world bounds
+        this.physics.world.setBounds(0, 0, 6000, 600);
+
+        // Set camera bounds
+        this.cameras.main.setBounds(0, 0, 6000, 600);
 
         // Make the camera follow the player horizontally
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
