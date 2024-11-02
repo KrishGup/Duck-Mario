@@ -1,31 +1,105 @@
+:root {
+    --primary: #6a8a73;
+    --secondary: #f8f1e9;
+    --secondary-font-color: aliceblue;
+}
+
 *, html {
     margin: 0;
     padding: 0;
 }
+/* ===================== utility classes =================== */
+.description-container-width {
+    width: 60%;
+}
+
+.hr-style {
+    padding: .5% 0 1% 0;
+}
+
+.custom-hr {
+    border: 0;
+    background-color: black;
+    height: 1.5px;
+}
+
+.h2-container {
+    padding: 0% 0 2%;
+    text-align: center;
+}
+
+.font-sizing {
+    font-size: 19px;
+}
 
 /* ===================== header section ==================== */
 header {
-    background-color: #14517b;
+    background-color: var(--primary);
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 -2px 9px 6px black;
+}
+
+article {
+    font-size: 1em;
+}
+
+h1 {
+    font-family: "Bona Nova SC", serif;
+    font-weight: bold;
+    font-size: 2.4rem;
+    padding: 1rem;
+    color: var(--secondary-font-color);
 }
 
 /* ==================== main section ======================= */
-
-#story {
-    width: 60%;
-}
-
 #game {
-    width: 60%;
+    width: 60vw;
+    height: 100vh;
+    padding: 1rem;
 }
 
 iframe {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    width: 50vw;
-    height: 80vh;
 }
 
 main {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: var(--secondary);
+    padding-bottom: 5%;
+    line-height: 2;
+    overflow: hidden;
+
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+article > p {
+    text-align: center;
+    text-indent: 10%;
+}
+
+/* ====================== footer section ====================== */
+footer {
+    background-color: var(--primary);
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--secondary-font-color);
+}
+
+#footer-info {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    padding: 1.5rem 0;
+}
+
+/* ======================= media queries ==================== */
+@media screen and (min-width: 600px) {
+    
 }

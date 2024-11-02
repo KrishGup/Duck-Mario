@@ -13,7 +13,11 @@ const config = {
             debug: false
         }
     },
-    scene: [Level1, Level2]
+    scene: [Level1, Level2],
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.NO_CENTER,
+    }
 };
 
 const game = new Phaser.Game(config);
