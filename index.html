@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Duck Mario</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/main.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -19,10 +20,11 @@
   </header>
 
   <main class="font-sizing">
-    <section id="game">
+    <section id="game-container">
       <iframe src="game.html" frameborder="0"></iframe>
+      <a href="./fullscreen.html" id="fullscreen-btn" target="_blank">Fullscreen</a>
     </section>
-    
+
     <section id="story" class="description-container-width">
       <div class="h2-container">
         <h2>Backstory:</h2>
@@ -65,6 +67,10 @@
       </li>
     </ul>
   </footer>
+  <script>
+    const fullscreenBtn = document.querySelector('#fullscreen-btn');
+    fullscreenBtn
+  </script>
 </body>
 
 </html>
