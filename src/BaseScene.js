@@ -7,7 +7,7 @@ class BaseScene extends Phaser.Scene {
         // Preload common assets
         // this.load.audio('bgm', 'assets/bgm.mp3'); 
         // this.load.audio('jump', 'assets/jump.mp3');
-        this.load.audio('quack', 'assets/quack.mp3');
+        this.load.audio('quack', 'assets/Sounds/quack.mp3');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
@@ -53,20 +53,22 @@ class BaseScene extends Phaser.Scene {
         this.cameras.main.setDeadzone(this.cameras.main.width * 0.3, this.cameras.main.height);
     }
 
-    update() {
+    update(time, delta) {
         // Character moves to the right by default
-        this.player.body.setVelocityX(100);
+        // this.player.body.setVelocityX(100);
 
         // Jump logic
-        if (this.jumpKey.isDown && this.player.body.touching.down) {
-            this.player.body.setVelocityY(-300);
-            // this.jumpSound.play();
-        }
-
-        // Attack logic (for now, just log to console)
-        if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
-            this.quackSound.play();
-            console.log('Attack!');
+        if (this.player.body.velocity.x !== 0) {
+            // Jump logic
+            if (this.jumpKey.isDown && this.player.body.touching.down) {
+                this.player.body.setVelocityY(-300);
+                // this.jumpSound.play();
+            }
+            // Attack logic (for now, just log to console)
+            if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
+                this.quackSound.play();
+                console.log('Attack!');
+            }
         }
     }
 

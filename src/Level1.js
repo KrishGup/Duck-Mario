@@ -39,13 +39,12 @@ class Level1 extends BaseScene {
         this.add.text(400, 300, 'Level 1', { fontSize: '32px', fill: '#000' });
         this.add.text(400, 350, 'The Lost Nest', { fontSize: '16px', fill: '#000' });
 
-        // Keep the player stagnant
-        this.player.body.setVelocityX(0);
-
         // Create raccoon and egg sprites
         const raccoon = this.add.sprite(900, 465, 'raccoon').setScale(0.5);
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
+        this.player.body.setVelocityX(0);
+        
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
             targets: raccoon,
@@ -69,7 +68,7 @@ class Level1 extends BaseScene {
             ]
         });
 
-        this.attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        
     }
 
     startGame(storyText) {
@@ -78,6 +77,7 @@ class Level1 extends BaseScene {
         this.input.keyboard.once('keydown-SPACE', () => {
             storyText.destroy();
             this.enablePlayerMovement();
+            this.quackSound.play();
         });
     }
 
@@ -85,19 +85,13 @@ class Level1 extends BaseScene {
         this.player.body.setVelocityX(100);
     }
 
-    update() {
-        // Only move the player if the story sequence is complete
-        if (this.player.body.velocity.x !== 0) {
-            // Jump logic
-            if (this.jumpKey.isDown && this.player.body.touching.down) {
-                this.player.body.setVelocityY(-300);
-            }
+    disablePlayerMovement() {
+        this.player.body.setVelocityX(0);
+    }
 
-            // Attack logic (for now, just log to console)
-            if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
-                console.log('Attack!');
-            }
-        }
+    update(time, delta) {
+       super.update(time, delta);
+
     }
 }
 
