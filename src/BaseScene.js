@@ -1,40 +1,51 @@
-class MainScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'MainScene' });
+class BaseScene extends Phaser.Scene {
+    constructor(key) {
+        super({ key });
     }
 
     preload() {
-        // Preload duck character
+        // Preload common assets
+        
+        this.load.image('tiles', 'assets/tiles.png');
+        this.load.tilemapTiledJSON('map', 'assets/map.json');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
     create() {
+        // Create the tilemap and tileset
+        const map = this.make.tilemap({ key: 'map' });
+        const tileset = map.addTilesetImage('tiles');
+        const backgroundLayer = map.createLayer('Background', tileset, 0, 0);
+
         // Create a simple platform
         this.platform = this.add.rectangle(400, 500, 800, 50, 0x00ff00);
         this.physics.add.existing(this.platform, true); // true makes it static
 
         // Add the duck character
         this.player = this.add.sprite(0, 315, 'duck');
+        this.player.setScale(0.5);
         this.physics.add.existing(this.player, false);
         this.player.body.setCollideWorldBounds(true);
-        
-        // this.player = this.add.rectangle(100, 450, 50, 50, 0xff0000);
-        // this.physics.add.existing(this.player);
-        // this.player.body.setCollideWorldBounds(true);
 
-        // Create a goal
-        this.goal = this.add.rectangle(700, 450, 50, 50, 0x0000ff);
-        this.physics.add.existing(this.goal, true);
-
-        // Enable collision between player and platform
+        // Enable collision detection between player and platform
         this.physics.add.collider(this.player, this.platform);
+
+
+        // Adjust the hitbox size and offset
+        this.player.body.setSize(this.player.width * 0.6, this.player.height * 0.52);
+        this.player.body.setOffset(this.player.width * 0.25, this.player.height * 0.25);
 
         // Set up cursor keys for jump and attack
         this.jumpKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         this.attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        // Enable collision detection between player and goal
-        this.physics.add.overlap(this.player, this.goal, this.reachGoal, null, this);
+        // Make the camera follow the player horizontally
+        this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+        this.cameras.main.setFollowOffset(0, 0); // Adjust the vertical offset if needed
+        this.cameras.main.setLerp(0.1, 0); // Smooth follow horizontally, no vertical movement
+
+        // Set camera deadzone to prevent jitter
+        this.cameras.main.setDeadzone(this.cameras.main.width * 0.3, this.cameras.main.height);
     }
 
     update() {
@@ -54,23 +65,9 @@ class MainScene extends Phaser.Scene {
 
     reachGoal(player, goal) {
         console.log('Goal reached!');
-        this.scene.restart(); // Restart the scene for simplicity
+        // Transition to the next level
+        this.scene.start('Level2');
     }
 }
 
-const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    backgroundColor: '#87CEEB',
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 500 },
-            debug: false
-        }
-    },
-    scene: MainScene
-};
-
-const game = new Phaser.Game(config);
+export default BaseScene;
