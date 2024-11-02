@@ -5,17 +5,19 @@ class BaseScene extends Phaser.Scene {
 
     preload() {
         // Preload common assets
-        
-        this.load.image('tiles', 'assets/tiles.png');
-        this.load.tilemapTiledJSON('map', 'assets/map.json');
+        // this.load.audio('bgm', 'assets/bgm.mp3'); 
+        // this.load.audio('jump', 'assets/jump.mp3');
+        this.load.audio('quack', 'assets/quack.mp3');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
     create() {
-        // Create the tilemap and tileset
-        const map = this.make.tilemap({ key: 'map' });
-        const tileset = map.addTilesetImage('tiles');
-        const backgroundLayer = map.createLayer('Background', tileset, 0, 0);
+        // Play background music
+        // this.bgm = this.sound.add('bgm', { loop: true });
+        // this.bgm.play();
+
+        
+        
 
         // Create a simple platform
         this.platform = this.add.rectangle(400, 500, 800, 50, 0x00ff00);
@@ -39,6 +41,9 @@ class BaseScene extends Phaser.Scene {
         this.jumpKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         this.attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        this.quackSound = this.sound.add('quack');
+        // this.jumpSound = this.sound.add('jump');
+
         // Make the camera follow the player horizontally
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
         this.cameras.main.setFollowOffset(0, 0); // Adjust the vertical offset if needed
@@ -55,10 +60,12 @@ class BaseScene extends Phaser.Scene {
         // Jump logic
         if (this.jumpKey.isDown && this.player.body.touching.down) {
             this.player.body.setVelocityY(-300);
+            // this.jumpSound.play();
         }
 
         // Attack logic (for now, just log to console)
         if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
+            this.quackSound.play();
             console.log('Attack!');
         }
     }
