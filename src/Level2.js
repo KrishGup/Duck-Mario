@@ -123,7 +123,7 @@ class Level2 extends BaseScene {
         const raccoon = this.add.sprite(900, 465, 'raccoon').setScale(0.5);
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
-        this.player.body.setVelocityX(0);
+        super.disablePlayerMovement();
 
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
