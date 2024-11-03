@@ -16,7 +16,7 @@ const config = {
             debug: false
         }
     },
-    scene: [Level1A, Level2],
+    scene: [Level1, Level1A, Level2, Level3],
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.NO_CENTER,
