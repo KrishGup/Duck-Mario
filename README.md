@@ -12,5 +12,6 @@ HACK.COMS 24-Hour Hackathon
 <li>Win/loose</li>
 <li>Dynamic camera</li>
 </ul>
+
 # Try it out
 <a href="https://quackathon.co">quackathon.co</a>
