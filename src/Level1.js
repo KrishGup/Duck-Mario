@@ -15,6 +15,8 @@ class Level1 extends BaseScene {
         // this.load.image('nest', 'assets/nest.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
+
+        this.load.image('thorns', 'assets/thornbush.png');
     }
 
     create() {
@@ -22,6 +24,18 @@ class Level1 extends BaseScene {
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
         this.bgm.play();
+
+
+                // Add thorns
+                this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
+                this.thorns2 = this.add.image(800, 450, 'thorns').setScale(0.25);
+                
+                this.physics.add.existing(this.thorns1, true);
+                this.physics.add.existing(this.thorns2, true);
+        
+                // Enable collision detection between player and thorns
+                this.physics.add.collider(this.player, this.thorns1, super.playerHIt, null, this);
+                this.physics.add.collider(this.player, this.thorns2, super.playerHIt, null, this);
 
         // Create a goal specific to Level 1
         
@@ -48,7 +62,7 @@ class Level1 extends BaseScene {
         const raccoon = this.add.sprite(900, 465, 'raccoon').setScale(0.5);
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
-        this.disablePlayerMovement();
+        super.disablePlayerMovement();
         
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
@@ -81,17 +95,9 @@ class Level1 extends BaseScene {
         storyText.setText('Press SPACE to start');
         this.input.keyboard.once('keydown-SPACE', () => {
             storyText.destroy();
-            this.enablePlayerMovement();
+            super.enablePlayerMovement();
             this.quackSound.play();
         });
-    }
-
-    enablePlayerMovement() {
-        this.player.body.setVelocityX(100);
-    }
-
-    disablePlayerMovement() {
-        this.player.body.setVelocityX(0);
     }
 
     update(time, delta) {
@@ -101,7 +107,7 @@ class Level1 extends BaseScene {
 
     reachGoal(player, goal) {
         super.reachGoal(player, goal);
-        this.disablePlayerMovement();
+        super.disablePlayerMovement();
         this.bgm.stop();
         this.scene.start('Level2');
     }

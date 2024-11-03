@@ -11,6 +11,7 @@ class Level2 extends BaseScene {
         // Preload assets specific to Level 2
         this.load.audio('bgm', 'assets/Sounds/bg-music-level-2.mp3');
         // this.load.image('nest', 'assets/nest.png');
+        this.load.image('thorns', 'assets/thornbush.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
     }
@@ -22,6 +23,17 @@ class Level2 extends BaseScene {
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
         this.bgm.play();
+
+        // Add thorns
+        this.thorns1 = this.add.image(300, 500, 'thorns').setScale(0.5);
+        this.thorns2 = this.add.image(600, 500, 'thorns').setScale(0.5);
+        
+        this.physics.add.existing(this.thorns1, true);
+        this.physics.add.existing(this.thorns2, true);
+
+        // Enable collision detection between player and thorns
+        this.physics.add.collider(this.player, this.thorns1, super.playerHIt, null, this);
+        this.physics.add.collider(this.player, this.thorns2, super.playerHIt, null, this);
 
         // Create a goal specific to Level 2
         this.goal = this.add.rectangle(1200, 450, 50, 50, 0x0000ff);
@@ -67,7 +79,7 @@ class Level2 extends BaseScene {
                     delay: 500,
                     onComplete: () => {
                         raccoon.destroy(); // Raccoon despawns
-                        this.enablePlayerMovement();
+                        super.enablePlayerMovement();
                     }
                 }
             ]
@@ -79,14 +91,6 @@ class Level2 extends BaseScene {
  
     }
 
-    enablePlayerMovement() {
-        this.player.body.setVelocityX(100);
-    }
-
-    disablePlayerMovement() {
-        this.player.body.setVelocityX(0);
-    }
-
     update(time, delta) {
        super.update(time, delta);
 
@@ -94,7 +98,7 @@ class Level2 extends BaseScene {
 
     reachGoal(player, goal) {
         super.reachGoal(player, goal);
-        this.disablePlayerMovement();
+        super.disablePlayerMovement();
         //end the music and start the next level
         this.bgm.stop();
         this.scene.start('Level3');
