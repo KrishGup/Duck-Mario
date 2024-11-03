@@ -23,6 +23,7 @@ class Level1 extends BaseScene {
         this.load.image("openHouse", "assets/houseOpen.png");
         this.load.image('thorns', 'assets/thornbush.png');
         this.load.image('house2Interior', 'assets/houseInterior.png');
+        this.load.image('fox', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_fox_with_stroke.png');
     }
 
     create() {
@@ -74,6 +75,9 @@ class Level1 extends BaseScene {
         this.background2 = this.add.image(3000, 500, 'background2');
         this.background2.setDisplaySize(1000, 740);
         this.background2.setDepth(-2);
+
+        //Add an enemy to the level
+        this.addEnemy(3500, 400, 'fox', -50);
 
         this.platform22 = this.physics.add.sprite(4000, 600, 'platform');
         this.platform22.setDisplaySize(1000, 740); // Set the exact size

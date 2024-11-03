@@ -14,6 +14,8 @@ class Level2 extends BaseScene {
         this.load.image('thorns', 'assets/thornbush.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
+        this.load.image('platform', 'assets/Mushroom Forest Background/final 1000x740px/mushroom forest bottom_1000x740px.png');
+
     }
 
     create() {

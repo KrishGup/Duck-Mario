@@ -138,7 +138,7 @@ class Level3 extends BaseScene {
             align: 'center',
             wordWrap: { width: 600 }
         }).setOrigin(0.5, 0.5);
-
+        super.disablePlayerMovement();
         this.add.text(400, 300, 'Level 3', { fontSize: '32px', fill: '#000' });
         this.add.text(400, 350, 'The Final Battle', { fontSize: '16px', fill: '#000' });
 
