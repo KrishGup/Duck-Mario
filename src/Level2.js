@@ -9,7 +9,7 @@ class Level2 extends BaseScene {
         super.preload();
 
         // Preload assets specific to Level 2
-        this.load.audio('bgm', 'assets/Sounds/bg-music-level-2.mp3');
+        this.load.audio('bgm2', 'assets/Sounds/bg-music-level-2.mp3');
         // this.load.image('nest', 'assets/nest.png');
         this.load.image('thorns', 'assets/thornbush.png');
         this.load.image('egg', 'assets/white.png');
@@ -21,8 +21,8 @@ class Level2 extends BaseScene {
         this.cameras.main.setBackgroundColor('#3c3c58');
 
         // Play background music
-        this.bgm = this.sound.add('bgm', { loop: true });
-        this.bgm.play();
+        this.bgm2 = this.sound.add('bgm2', { loop: true });
+        this.bgm2.play();
 
         // Add thorns
         this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
@@ -110,7 +110,7 @@ class Level2 extends BaseScene {
 
     death(){
         super.death();
-        this.bgm.stop();
+        this.bgm2.stop();
     }
 
     opening() {
@@ -163,7 +163,7 @@ class Level2 extends BaseScene {
         super.reachGoal(player, goal);
         super.disablePlayerMovement();
         //end the music and start the next level
-        this.bgm.stop();
+        this.bgm2.stop();
         this.scene.start('Level3');
     }
 
