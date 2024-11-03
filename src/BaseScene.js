@@ -3,6 +3,7 @@ import Enemy from './Enemy.js';
 class BaseScene extends Phaser.Scene {
     constructor(key) {
         super({ key });
+        this.isJumping = false;
     }
 
     preload() {
@@ -87,27 +88,32 @@ class BaseScene extends Phaser.Scene {
 
     update(time, delta) {
         // Character moves to the right by default
-        // this.player.body.setVelocityX(100);
-
-        // Jump logic
         if (this.player.body.velocity.x !== 0) {
             // Jump logic
-            // Check if the player is on the ground
             if (this.player.body.touching.down) {
                 this.isOnGround = true;
                 this.coyoteTime = this.coyoteTimeDuration;
+                this.isJumping = false; // Reset jumping flag when on the ground
             } else {
                 this.isOnGround = false;
                 if (this.coyoteTime > 0) {
                     this.coyoteTime -= delta;
                 }
             }
-            
+
             if (this.jumpKey.isDown && (this.player.body.touching.down || this.coyoteTime > 0)) {
-                this.player.body.setVelocityY(-400);
+                this.player.body.setVelocityY(-500);
                 this.coyoteTime = 0; // Reset coyote time after jumping
                 this.jumpSound.play();
+                this.isJumping = true; // Set jumping flag when jump starts
             }
+
+            // Variable jump height logic
+            if (this.isJumping && this.jumpKey.isUp) {
+                this.player.body.setVelocityY(this.player.body.velocity.y * 0.5); // Reduce upward velocity when jump key is released
+                this.isJumping = false; // Reset jumping flag
+            }
+
             // Attack logic (for now, just log to console)
             if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
                 this.quackSound.play();
