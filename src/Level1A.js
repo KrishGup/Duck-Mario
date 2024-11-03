@@ -8,7 +8,7 @@ class Level1A extends BaseScene {
     preload() {
         super.preload();
         // Preload assets specific to Level 1A
-        this.load.image('houseInterior', 'assets/houseInterior.png');
+        this.load.image('house2Interior', 'assets/houseInterior.png');
         this.load.audio('bgmHouse', 'assets/Sounds/housebeat.mp3');
     }
 
@@ -20,8 +20,13 @@ class Level1A extends BaseScene {
         this.bgmHouse.play();
 
         // Set up the house interior
-        this.houseInterior = this.add.image(400, 300, 'houseInterior');
+        this.houseInterior = this.add.image(400, 300, 'house2Interior');
         this.houseInterior.setDisplaySize(800, 600);
+        this.houseInterior.setDepth(0);
+
+        // Move character to depth 1
+        this.player.setDepth(1);
+        
 
         // Start the opening story sequence
         this.opening();

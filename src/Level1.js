@@ -3,6 +3,7 @@ import BaseScene from './BaseScene.js';
 class Level1 extends BaseScene {
     constructor() {
         super('Level1');
+        this.goalReached = false; // Add a flag to track goal reach status
     }
 
     preload() {
@@ -26,8 +27,6 @@ class Level1 extends BaseScene {
     create() {
         super.create();
         
-
-
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
         this.bgm.play();
@@ -63,8 +62,6 @@ class Level1 extends BaseScene {
             });
         });
 
-
-
         this.platform2 = this.physics.add.sprite(3000, 600, 'platform');
         this.platform2.setDisplaySize(1000, 740); // Set the exact size
         this.platform2.body.setAllowGravity(false);
@@ -88,7 +85,6 @@ class Level1 extends BaseScene {
         this.background22 = this.add.image(4000, 500, 'background2');
         this.background22.setDisplaySize(1000, 740);
         this.background22.setDepth(-2);
-
 
         this.platform3 = this.add.rectangle(5750, 800, 2500, 740, 0x808080);
         this.physics.add.existing(this.platform3, true); // true makes it static
@@ -116,41 +112,6 @@ class Level1 extends BaseScene {
         this.openHouse.setDepth(-1);
         this.openHouse.setVisible(false);
 
-        
-
-
-
-
-      
-        
-
-        // this.platform4 = this.physics.add.sprite(4000, 600, 'platform');
-        // this.platform4.setDisplaySize(500, 740); // Set the exact size
-        // this.platform4.body.setAllowGravity(false);
-        // this.platform4.body.setImmovable(true);
-        // this.physics.add.collider(this.player, this.platform4);
-        // this.platform4.body.setOffset(0,230);
-        // this.platform4.setDepth(-1);
-
-        // this.platform5 = this.physics.add.sprite(4750, 600, 'platform');
-        // this.platform5.setDisplaySize(500, 740); // Set the exact size
-        // this.platform5.body.setAllowGravity(false);
-        // this.platform5.body.setImmovable(true);
-        // this.physics.add.collider(this.player, this.platform5);
-        // this.platform5.body.setOffset(0,230);
-        // this.platform5.setDepth(-1);
-
-        // this.platform6 = this.physics.add.sprite(6250, 600, 'platform');
-        // this.platform6.setDisplaySize(500, 740); // Set the exact size
-        // this.platform6.body.setAllowGravity(false);
-        // this.platform6.body.setImmovable(true);
-        // this.physics.add.collider(this.player, this.platform6);
-        // this.platform6.body.setOffset(0,230);
-        // this.platform6.setDepth(-1);
-
-        
-        
-        
         // Start the opening story sequence
         this.opening();
     }
@@ -194,8 +155,6 @@ class Level1 extends BaseScene {
                 }
             ]
         });
-
-        
     }
 
     startGame(storyText) {
@@ -226,6 +185,9 @@ class Level1 extends BaseScene {
     }
 
     reachGoal(player, goal) {
+        if (this.goalReached) return; // Check if the goal has already been reached
+        this.goalReached = true; // Set the flag to true
+
         super.reachGoal(player, goal);
         super.disablePlayerMovement();
         this.bgm.stop();
