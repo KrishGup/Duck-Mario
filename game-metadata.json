@@ -1,0 +1,14 @@
+{
+    "title": "(string) TITLE OF YOUR GAME",
+    "author": "(string) Krish, Jaaron, Evan",
+    "summary": "(string) SUMMARY OF YOUR GAME",
+    "release_date": "2024-03-11",
+    "multiplayer": false,
+    "genres": [
+        "(string) PLATFORMER"
+    ],
+    "times_played": 0,
+    "last_played": 0,
+    "cover_image": "(string) .png/.jpg RELATIVE PATH TO THE COVER IMAGE OF YOUR GAME",
+    "exec": "https://krishgup.github.io/Duck-Mario/game.html"
+}
