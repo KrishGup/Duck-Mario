@@ -1,4 +1,5 @@
 import BaseScene from './BaseScene.js';
+import { gamePad } from './BaseScene.js';
 
 class Level1 extends BaseScene {
     constructor() {
@@ -9,7 +10,7 @@ class Level1 extends BaseScene {
         super.preload();
 
         //bind level 1 specific music
-        this.load.audio('bgm', 'assets/Sounds/bg-music-level-1.mp3'); 
+        this.load.audio('bgm', 'assets/Sounds/bg-music-level-1.mp3');
 
         // Preload assets specific to Level 1
         // this.load.image('nest', 'assets/nest.png');
@@ -27,7 +28,7 @@ class Level1 extends BaseScene {
         this.bgm.play();
 
         // Create a goal specific to Level 
-        
+
         //set up platforms
         this.platform1 = this.physics.add.sprite(1750, 600, 'platform');
         this.platform1.setDisplaySize(500, 740); // Set the exact size
@@ -35,7 +36,7 @@ class Level1 extends BaseScene {
         this.platform1.body.setImmovable(true);
         this.physics.add.collider(this.player, this.platform1);
         this.platform1.setDepth(-1);
-        this.platform1.body.setOffset(0,230);
+        this.platform1.body.setOffset(0, 230);
 
         this.river = this.add.rectangle(2250, 845, 485, 740, 0x1E90FF); // Updated river color
         this.physics.add.existing(this.river, true); // true makes it static
@@ -64,8 +65,8 @@ class Level1 extends BaseScene {
         this.platform2.body.setAllowGravity(false);
         this.platform2.body.setImmovable(true);
         this.physics.add.collider(this.player, this.platform2);
-        this.platform2.body.setOffset(0,230);
-        this.platform2.setDepth(-1);   
+        this.platform2.body.setOffset(0, 230);
+        this.platform2.setDepth(-1);
 
         // this.platform4 = this.physics.add.sprite(4000, 600, 'platform');
         // this.platform4.setDisplaySize(500, 740); // Set the exact size
@@ -94,14 +95,14 @@ class Level1 extends BaseScene {
         // this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x808080);
         // this.physics.add.existing(this.platform3, true); // true makes it static
         // this.physics.add.collider(this.player, this.platform3);
-        
-        
+
+
         // Start the opening story sequence
         this.opening();
     }
 
     opening() {
-        const storyText = this.add.text(400, 300, 'In the peaceful pond of Waddlewood...', {
+        this.storyText = this.add.text(400, 300, 'In the peaceful pond of Waddlewood...', {
             fontSize: '20px',
             fill: '#ffffff',
             align: 'center',
@@ -116,7 +117,7 @@ class Level1 extends BaseScene {
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
         super.disablePlayerMovement();
-        
+
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
             targets: raccoon,
@@ -134,18 +135,16 @@ class Level1 extends BaseScene {
                     delay: 500,
                     onComplete: () => {
                         raccoon.destroy(); // Raccoon despawns
-                        this.startGame(storyText);
+                        this.startGame(this.storyText);
                     }
                 }
             ]
         });
 
-        
+
     }
 
     startGame(storyText) {
-        // Set a timer to remove the story text and enable player movement
-        storyText.setText('Press SPACE to start');
         this.input.keyboard.once('keydown-SPACE', () => {
             storyText.destroy();
             super.enablePlayerMovement();
@@ -154,8 +153,18 @@ class Level1 extends BaseScene {
     }
 
     update(time, delta) {
-       super.update(time, delta);
-
+        super.update(time, delta);
+        // Set a timer to remove the story text and enable player movement
+        this.storyText.setText('Press SPACE to start');
+        if (gamePad) {
+                if (navigator.getGamepads()[0].buttons[1]['pressed']) {
+                    console.log('Gamepad button 1 pressed');
+                    this.storyText.destroy();
+                    super.enablePlayerMovement();
+                    this.quackSound.play();
+                }
+            
+        }
     }
 
     reachGoal(player, goal) {
