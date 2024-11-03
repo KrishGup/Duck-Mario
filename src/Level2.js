@@ -154,11 +154,6 @@ class Level2 extends BaseScene {
 
     }
 
-    update(time, delta) {
-        super.update(time, delta);
-
-    }
-
     reachGoal(player, goal) {
         super.reachGoal(player, goal);
         super.disablePlayerMovement();
