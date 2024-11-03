@@ -40,27 +40,27 @@ class Level1 extends BaseScene {
         // Create a goal specific to Level 
         
         //set up platforms
-        this.platform1 = this.add.rectangle(1750, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform1, true); // true makes it static
+        this.platform1 = this.add.rectangle(2000, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform1, true); // true makes it static X increments by 750
         this.physics.add.collider(this.player, this.platform1);
 
-        this.platform2 = this.add.rectangle(2500, 500, 500, 50, 0x00ff00);
+        this.platform2 = this.add.rectangle(2750, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform2, true); // true makes it static
         this.physics.add.collider(this.player, this.platform2);
 
-        this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x00ff00);
+        this.platform3 = this.add.rectangle(4000, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform3, true); // true makes it static
         this.physics.add.collider(this.player, this.platform3);
 
-        this.platform4 = this.add.rectangle(4000, 500, 500, 50, 0x00ff00);
+        this.platform4 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform4, true); // true makes it static
         this.physics.add.collider(this.player, this.platform4);
 
-        this.platform5 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
+        this.platform5 = this.add.rectangle(5500, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform5, true); // true makes it static
         this.physics.add.collider(this.player, this.platform5);
 
-        this.platform6 = this.add.rectangle(5500, 500, 500, 50, 0x00ff00);
+        this.platform6 = this.add.rectangle(6250, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform6, true); // true makes it static
         this.physics.add.collider(this.player, this.platform6);
         // super.graphics.fillStyle(0x00ff0f, 1);
