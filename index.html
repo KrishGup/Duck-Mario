@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Duck Mario</title>
   <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Inconsolata:wght@200..900&display=swap"
     rel="stylesheet">
+  <link rel="icon" type="image/png" href="./assets/White.png">
 </head>
 
 <body>
@@ -20,42 +21,59 @@
   </header>
 
   <main class="font-sizing">
-    <section id="game-container">
-      <iframe src="game.html" frameborder="0"></iframe>
-      <a href="./fullscreen.html" id="fullscreen-btn" target="_blank">Fullscreen</a>
-    </section>
+    <div id="left-cloud" class="cloud-container">
+      <img src="./assets/Site Images/cloud.png" alt="white clouds" class="image-class">
+    </div>
 
-    <section id="story" class="description-container-width">
-      <div class="h2-container">
-        <h2>Backstory:</h2>
-        <div class="hr-style">
-          <hr class="custom-hr">
+    <div id="right-cloud" class="cloud-container">
+      <img src="./assets/Site Images/cloud.png" alt="white clouds" class="image-class">
+    </div>
+
+    <div id="section-container">
+      <section id="game-container">
+        <iframe src="./game.html" frameborder="0" id="game-frame"></iframe>
+        <a href="./game.html" id="fullscreen-btn" target="_blank">
+          Fullscreen
+          <svg width="16px" height="16px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" mirror-in-rtl="true">
+            <path fill="#fff" d="M12.1.6a.944.944 0 0 0 .2 1.04l1.352 1.353L10.28 6.37a.956.956 0 0 0 1.35 1.35l3.382-3.38 1.352 1.352a.944.944 0 0 0 1.04.2.958.958 0 0 0 .596-.875V.96a.964.964 0 0 0-.96-.96h-4.057a.958.958 0 0 0-.883.6z"/>
+            <path fill="#fff" d="M14 11v5a2.006 2.006 0 0 1-2 2H2a2.006 2.006 0 0 1-2-2V6a2.006 2.006 0 0 1 2-2h5a1 1 0 0 1 0 2H2v10h10v-5a1 1 0 0 1 2 0z"/>
+        </svg>
+        </a>
+      </section>
+      <section id="story" class="description-container-width">
+        <div class="h2-container">
+          <h2>Backstory:</h2>
+          <div class="hr-style">
+            <hr class="custom-hr">
+          </div>
         </div>
-      </div>
+        <article>
+          <p>
+            In the peaceful pond of Waddlewood, a cheerful duck named Quackers lived happily with his beloved eggs. Each
+            day, he would waddle through the lush reeds, basking in the sun and protecting his little family. The pond was
+            vibrant, filled with friendly critters and blooming flowers, a perfect home for any duck.
+          </p>
+          <br>
+          <p>
+            However, one fateful day, the tranquility was shattered when a mischievous band of rascally raccoons, led by
+            the
+            cunning Rascal, hatched a plan to snatch Quackers' precious eggs. The raccoons, always on the lookout for
+            shiny
+            treasures, believed the eggs held magical powers that would grant them endless tricks and treats.
+          </p>
+          <br>
+          <p>
+            As Quackers returned home from foraging for food, he discovered that his nest had been raided. His eggs were
+            gone, and his peaceful life turned into a frantic chase. Determined to reclaim his eggs, Quackers set out on a
+            daring adventure navigating through various obstacles and overcoming challenges along the way.
+          </p>
+        </article>
+      </section>
+    </div>
 
-      <article>
-        <p>
-          In the peaceful pond of Waddlewood, a cheerful duck named Quackers lived happily with his beloved eggs. Each
-          day, he would waddle through the lush reeds, basking in the sun and protecting his little family. The pond was
-          vibrant, filled with friendly critters and blooming flowers, a perfect home for any duck.
-        </p>
-        <br>
-        <p>
-          However, one fateful day, the tranquility was shattered when a mischievous band of rascally raccoons, led by
-          the
-          cunning Rascal, hatched a plan to snatch Quackers' precious eggs. The raccoons, always on the lookout for
-          shiny
-          treasures, believed the eggs held magical powers that would grant them endless tricks and treats.
-        </p>
-        <br>
-        <p>
-          As Quackers returned home from foraging for food, he discovered that his nest had been raided. His eggs were
-          gone, and his peaceful life turned into a frantic chase. Determined to reclaim his eggs, Quackers set out on a
-          daring adventure navigating through various obstacles and overcoming challenges along the way.
-        </p>
-      </article>
-    </section>
-
+    <div id="hill-container">
+      <img src="assets/Site Images/hills.png" alt="hills" class="image-class">
+    </div>
   </main>
   <footer>
     <ul id="footer-info">
@@ -67,10 +85,7 @@
       </li>
     </ul>
   </footer>
-  <script>
-    const fullscreenBtn = document.querySelector('#fullscreen-btn');
-    fullscreenBtn
-  </script>
+  
 </body>
 
 </html>
