@@ -28,6 +28,7 @@ class Level1 extends BaseScene {
 
     create() {
         super.create();
+
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
         this.bgm.play();
@@ -157,6 +158,29 @@ class Level1 extends BaseScene {
 
     update(time, delta) {
         super.update(time, delta);
+
+        // Set a timer to remove the story text and enable player movement
+        this.storyText.setText('Press SPACE to start');
+        if (gamePad) {
+            if (navigator.getGamepads()[0].buttons[1]['pressed']) {
+                console.log('Gamepad button 1 pressed');
+                this.storyText.destroy();
+                super.enablePlayerMovement();
+                this.quackSound.play();
+            }
+
+            if (this.player.x > 5400 && this.player.x < 5800 && navigator.getGamepads()[0].buttons[0]['pressed']) {
+                this.closedHouse.setVisible(false);
+                this.openHouse.setVisible(true);
+                this.time.delayedCall(2000, () => {
+                    this.reachGoal(this.player, this.goal);
+                });
+            }
+
+            // console log postion of player
+            // console.log(this.player.x, this.player.y);
+        }
+
         // if user is at the closed house and presses space, open the house
         this.input.keyboard.on('keydown-SPACE', () => {
             if (this.player.x > 5400 && this.player.x < 5800 && this.notYetOpened) {
@@ -172,11 +196,7 @@ class Level1 extends BaseScene {
                 });
             }
         });
-
-        // console log postion of player
-        // console.log(this.player.x, this.player.y);
     }
-
     reachGoal(player, goal) {
         if (this.goalReached) return; // Check if the goal has already been reached
         this.goalReached = true; // Set the flag to true
