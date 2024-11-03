@@ -36,6 +36,7 @@ class BaseScene extends Phaser.Scene {
         // Enable collision detection between player and platform
         this.physics.add.collider(this.player, this.platform);
 
+        this.physics.add.collider(this.enemies, this.platform);
 
         // Adjust the hitbox size and offset
         this.player.body.setSize(this.player.width * 0.6, this.player.height * 0.52);
