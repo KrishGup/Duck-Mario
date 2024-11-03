@@ -13,11 +13,14 @@ class Level3 extends BaseScene {
         this.load.image('thorns', 'assets/thornbush.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
+        this.load.image('castle', 'assets/castle/castle.png');
     }
 
     create() {
         super.create();
-        this.cameras.main.setBackgroundColor('#3c3c58');
+        this.background22 = this.add.image(0, 0, 'castle').setOrigin(0, 0);
+        this.background22.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+        this.background22.setDepth(-2);
 
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
