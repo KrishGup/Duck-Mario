@@ -93,7 +93,11 @@ class BaseScene extends Phaser.Scene {
 
     update(time, delta) {
         // Character moves to the right by default
-        if (this.player.body.velocity.x !== 0) {
+        if (this.player.body.velocity.x === 0) {
+            this.player.body.setVelocityX(200);
+        }
+
+        if (this.player.body.velocity.x !== 1) {
             // Jump logic
             if (this.player.body.touching.down) {
                 this.isOnGround = true;
@@ -143,7 +147,7 @@ class BaseScene extends Phaser.Scene {
     }
 
     disablePlayerMovement() {
-        this.player.body.setVelocityX(0);
+        this.player.body.setVelocityX(1);
     }
 
     addEnemy(x, y, texture, speed) {
@@ -214,6 +218,13 @@ class BaseScene extends Phaser.Scene {
     reachGoal(player, goal) {
         console.log('Goal reached!');
         this.sound.play('win');
+        //stop all sound
+        this.sound.stopAll();
+        // clear all tweens
+        this.tweens.killAll();
+        // clear all timers
+        this.time.removeAllEvents();
+
         // Transition to the next level
         //this.scene.start('Level2');
     }
