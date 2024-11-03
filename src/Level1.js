@@ -67,50 +67,37 @@ class Level1 extends BaseScene {
         this.platform2.body.setAllowGravity(false);
         this.platform2.body.setImmovable(true);
         this.physics.add.collider(this.player, this.platform2);
-        this.platform2.body.setOffset(0,230);
+        this.platform2.body.setOffset(0, 230);
         this.platform2.setDepth(-1);
-        
-        this.background2 = this.add.image(3000, 500, 'background2');
-        this.background2.setDisplaySize(1000, 740);
-        this.background2.setDepth(-2);
 
-        this.platform22 = this.physics.add.sprite(4000, 600, 'platform');
-        this.platform22.setDisplaySize(1000, 740); // Set the exact size
-        this.platform22.body.setAllowGravity(false);
-        this.platform22.body.setImmovable(true);
-        this.physics.add.collider(this.player, this.platform22);
-        this.platform22.body.setOffset(0,230);
-        this.platform22.setDepth(-1);
-        
-        this.background22 = this.add.image(4000, 500, 'background2');
-        this.background22.setDisplaySize(1000, 740);
-        this.background22.setDepth(-2);
+        // this.platform4 = this.physics.add.sprite(4000, 600, 'platform');
+        // this.platform4.setDisplaySize(500, 740); // Set the exact size
+        // this.platform4.body.setAllowGravity(false);
+        // this.platform4.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform4);
+        // this.platform4.body.setOffset(0,230);
+        // this.platform4.setDepth(-1);
 
-        this.platform3 = this.add.rectangle(5750, 800, 2500, 740, 0x808080);
-        this.physics.add.existing(this.platform3, true); // true makes it static
-        this.physics.add.collider(this.player, this.platform3);
+        // this.platform5 = this.physics.add.sprite(4750, 600, 'platform');
+        // this.platform5.setDisplaySize(500, 740); // Set the exact size
+        // this.platform5.body.setAllowGravity(false);
+        // this.platform5.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform5);
+        // this.platform5.body.setOffset(0,230);
+        // this.platform5.setDepth(-1);
 
-        // Place the closed house on top of platform 3
-        // When the player reaches the house sprite they should be stopped via collision, then when they use attack
-        // The door will open with an animation changing the sprite to an open door and then a 2 second delay fade to black
-        // after the fade to black the next level will start
-        this.closedHouse = this.physics.add.sprite(5750, 300, 'closedHouse');
-        this.closedHouse.setDisplaySize(500, 740); // Set the exact size
-        this.closedHouse.body.setAllowGravity(false);
-        this.closedHouse.body.setImmovable(true);
-        this.physics.add.collider(this.player, this.closedHouse);
-        this.closedHouse.body.setOffset(0,230);
-        this.closedHouse.setDepth(-1);
-        this.closedHouse.setVisible(true);
+        // this.platform6 = this.physics.add.sprite(6250, 600, 'platform');
+        // this.platform6.setDisplaySize(500, 740); // Set the exact size
+        // this.platform6.body.setAllowGravity(false);
+        // this.platform6.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform6);
+        // this.platform6.body.setOffset(0,230);
+        // this.platform6.setDepth(-1);
 
-        // Replace the clousedHouse with the open house sprite
-        this.openHouse = this.physics.add.sprite(5750, 300, 'openHouse');
-        this.openHouse.setDisplaySize(500, 740); // Set the exact size
-        this.openHouse.body.setAllowGravity(false);
-        this.openHouse.body.setImmovable(true);
-        this.openHouse.body.setOffset(0,230);
-        this.openHouse.setDepth(-1);
-        this.openHouse.setVisible(false);
+        // this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x808080);
+        // this.physics.add.existing(this.platform3, true); // true makes it static
+        // this.physics.add.collider(this.player, this.platform3);
+
 
         // Start the opening story sequence
         this.opening();
@@ -155,8 +142,6 @@ class Level1 extends BaseScene {
                 }
             ]
         });
-
-        
     }
 
     startGame(storyText) {
@@ -168,8 +153,39 @@ class Level1 extends BaseScene {
     }
 
     update(time, delta) {
-       super.update(time, delta);
+        super.update(time, delta);
 
+        // Set a timer to remove the story text and enable player movement
+        this.storyText.setText('Press SPACE to start');
+        if (gamePad) {
+                if (navigator.getGamepads()[0].buttons[1]['pressed']) {
+                    console.log('Gamepad button 1 pressed');
+                    this.storyText.destroy();
+                    super.enablePlayerMovement();
+                    this.quackSound.play();
+                }
+            
+                if(this.player.x > 5400 && this.player.x < 5800 && navigator.getGamepads()[0].buttons[0]['pressed']) {
+                    this.closedHouse.setVisible(false);
+                    this.openHouse.setVisible(true);
+                    this.time.delayedCall(2000, () => {
+                        this.reachGoal(this.player, this.goal);
+                    });
+        }
+
+        // if user is at the closed house and presses space, open the house
+        this.input.keyboard.on('keydown-SPACE', () => {
+            if (this.player.x > 5400 && this.player.x < 5800) {
+                this.closedHouse.setVisible(false);
+                this.openHouse.setVisible(true);
+                this.time.delayedCall(2000, () => {
+                    this.reachGoal(this.player, this.goal);
+                });
+            }
+        });
+
+        // console log postion of player
+        // console.log(this.player.x, this.player.y);
     }
 
     reachGoal(player, goal) {
