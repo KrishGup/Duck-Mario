@@ -77,7 +77,14 @@ class Level1 extends BaseScene {
         this.background2.setDepth(-2);
 
         //Add an enemy to the level
-        this.addEnemy(3500, 400, 'fox', -50);
+        this.addEnemy(3500, 0, 'fox', -50);
+
+        this.enemies.children.iterate((enemy) => {
+            enemy.body.setSize(enemy.width * 0.6, enemy.height * 0.52);
+            enemy.body.setOffset(enemy.width * 0.25, enemy.height * 0.25);
+            enemy.setCollideWorldBounds(true);
+            enemy.setScale(0.5);
+        });
 
         this.platform22 = this.physics.add.sprite(4000, 600, 'platform');
         this.platform22.setDisplaySize(1000, 740); // Set the exact size
