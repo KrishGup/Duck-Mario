@@ -14,6 +14,7 @@ class Level3 extends BaseScene {
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
         this.load.image('castle', 'assets/castle/castle.png');
+        this.load.image('goal', 'assets/Solid Eggs/Solid Eggs/Yellow.png');
     }
 
     create() {
@@ -117,7 +118,7 @@ class Level3 extends BaseScene {
         this.physics.add.collider(this.enemies, this.platform9);
 
         // Create a goal specific to Level 3
-        this.goal = this.add.rectangle(5500, 450, 50, 50, 0x0000ff);
+        this.goal = this.add.image(5500, 450, 'goal').setScale(0.5);
         this.physics.add.existing(this.goal, true);
         this.physics.add.overlap(this.player, this.goal, this.reachGoal, null, this);
 
