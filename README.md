@@ -1,4 +1,4 @@
-# Duck-Mario
+# Quackers' Quest
 HACK.COMS 24-Hour Hackathon
 # MVP
 <ul>
