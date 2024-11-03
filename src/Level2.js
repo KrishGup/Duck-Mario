@@ -108,6 +108,11 @@ class Level2 extends BaseScene {
         // });
     }
 
+    death(){
+        super.death();
+        this.bgm.stop();
+    }
+
     opening() {
         const storyText = this.add.text(100, 300, 'In search of the egg, It left once again...', {
             fontSize: '20px',
@@ -123,7 +128,7 @@ class Level2 extends BaseScene {
         const raccoon = this.add.sprite(900, 465, 'raccoon').setScale(0.5);
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
-        this.player.body.setVelocityX(0);
+        super.disablePlayerMovement();
 
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
