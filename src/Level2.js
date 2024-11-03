@@ -54,7 +54,7 @@ class Level2 extends BaseScene {
         this.physics.add.existing(this.platform2, true); // true makes it static
         this.physics.add.collider(this.player, this.platform2);
 
-        this.platform3 = this.add.rectangle(3000, 500, 250, 50, 0x00ff00);
+        this.platform3 = this.add.rectangle(2900, 500, 250, 50, 0x00ff00);
         this.physics.add.existing(this.platform3, true); // true makes it static
         this.physics.add.collider(this.player, this.platform3);
 
