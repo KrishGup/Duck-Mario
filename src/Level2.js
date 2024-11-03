@@ -50,28 +50,46 @@ class Level2 extends BaseScene {
         this.physics.add.existing(this.platform1, true); // true makes it static X increments by 750
         this.physics.add.collider(this.player, this.platform1);
 
-        this.platform2 = this.add.rectangle(2500, 500, 500, 50, 0x00ff00);
+        this.platform2 = this.add.rectangle(2400, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform2, true); // true makes it static
         this.physics.add.collider(this.player, this.platform2);
 
-        this.platform3 = this.add.rectangle(2900, 500, 250, 50, 0x00ff00);
+        this.platform3 = this.add.rectangle(2800, 500, 250, 50, 0x00ff00);
         this.physics.add.existing(this.platform3, true); // true makes it static
         this.physics.add.collider(this.player, this.platform3);
 
-        this.platform4 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
+        this.platform4 = this.add.rectangle(3250, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform4, true); // true makes it static
         this.physics.add.collider(this.player, this.platform4);
 
-        this.platform5 = this.add.rectangle(5500, 500, 500, 50, 0x00ff00);
+        this.platform5 = this.add.rectangle(4250, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform5, true); // true makes it static
         this.physics.add.collider(this.player, this.platform5);
 
-        this.platform6 = this.add.rectangle(6250, 500, 500, 50, 0x00ff00);
+        this.platform6 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
         this.physics.add.existing(this.platform6, true); // true makes it static
         this.physics.add.collider(this.player, this.platform6);
 
+        this.platform7 = this.add.rectangle(5250, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform7, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform7);
+
+        this.log = this.add.sprite(3650, 480, 'log').setScale(0.3);
+        this.physics.add.existing(this.log, false); // true makes it static
+        //set log gravity to false
+        this.log.body.setAllowGravity(false);
+        this.physics.add.collider(this.player, this.log, (player, log) => {
+            // Make the log move with the player
+            log.body.setVelocityX(200);
+            log.body.setAllowGravity(true); // Enable gravity when the player steps on the log
+            // Destroy the log after x milliseconds
+            this.time.delayedCall(5000, () => {
+                log.destroy();
+            });
+        });
+
         // Create a goal specific to Level 2
-        this.goal = this.add.rectangle(6500, 450, 50, 50, 0x0000ff);
+        this.goal = this.add.rectangle(5500, 450, 50, 50, 0x0000ff);
         this.physics.add.existing(this.goal, true);
 
         // Enable collision detection between player and goal
