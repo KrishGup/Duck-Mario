@@ -15,6 +15,8 @@ class Level1 extends BaseScene {
         // this.load.image('nest', 'assets/nest.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
+        this.load.image('log', 'assets/log.png');
+        this.load.image('platform', 'assets/Mushroom Forest Background/final 1000x740px/mushroom forest bottom_1000x740px.png');
 
         this.load.image('thorns', 'assets/thornbush.png');
     }
@@ -28,31 +30,71 @@ class Level1 extends BaseScene {
         // Create a goal specific to Level 
         
         //set up platforms
-        this.platform1 = this.add.rectangle(1750, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform1, true); // true makes it static X increments by 750
+        this.platform1 = this.physics.add.sprite(1750, 600, 'platform');
+        this.platform1.setDisplaySize(500, 740); // Set the exact size
+        this.platform1.body.setAllowGravity(false);
+        this.platform1.body.setImmovable(true);
         this.physics.add.collider(this.player, this.platform1);
+        this.platform1.setDepth(-1);
+        this.platform1.body.setOffset(0,230);
 
-        this.platform2 = this.add.rectangle(2500, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform2, true); // true makes it static
+        this.river = this.add.rectangle(2250, 845, 485, 740, 0x1E90FF); // Updated river color
+        this.physics.add.existing(this.river, true); // true makes it static
+        this.physics.add.collider(this.player, this.river, () => {
+            this.death(); // Call the death method when the player collides with the river
+        });
+
+        this.log = this.add.sprite(2250, 480, 'log').setScale(0.3);
+        this.physics.add.existing(this.log, false); // true makes it static
+        //set log gravity to false
+        this.log.body.setAllowGravity(false);
+        this.physics.add.collider(this.player, this.log, (player, log) => {
+            // Make the log move with the player
+            log.body.setVelocityX(200);
+            log.body.setAllowGravity(true); // Enable gravity when the player steps on the log
+            // Destroy the log after x milliseconds
+            this.time.delayedCall(5000, () => {
+                log.destroy();
+            });
+        });
+
+
+
+        this.platform2 = this.physics.add.sprite(2750, 600, 'platform');
+        this.platform2.setDisplaySize(1000, 740); // Set the exact size
+        this.platform2.body.setAllowGravity(false);
+        this.platform2.body.setImmovable(true);
         this.physics.add.collider(this.player, this.platform2);
+        this.platform2.body.setOffset(0,230);
+        this.platform2.setDepth(-1);   
 
-        this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform3, true); // true makes it static
-        this.physics.add.collider(this.player, this.platform3);
+        // this.platform4 = this.physics.add.sprite(4000, 600, 'platform');
+        // this.platform4.setDisplaySize(500, 740); // Set the exact size
+        // this.platform4.body.setAllowGravity(false);
+        // this.platform4.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform4);
+        // this.platform4.body.setOffset(0,230);
+        // this.platform4.setDepth(-1);
 
-        this.platform4 = this.add.rectangle(4000, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform4, true); // true makes it static
-        this.physics.add.collider(this.player, this.platform4);
+        // this.platform5 = this.physics.add.sprite(4750, 600, 'platform');
+        // this.platform5.setDisplaySize(500, 740); // Set the exact size
+        // this.platform5.body.setAllowGravity(false);
+        // this.platform5.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform5);
+        // this.platform5.body.setOffset(0,230);
+        // this.platform5.setDepth(-1);
 
-        this.platform5 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform5, true); // true makes it static
-        this.physics.add.collider(this.player, this.platform5);
+        // this.platform6 = this.physics.add.sprite(6250, 600, 'platform');
+        // this.platform6.setDisplaySize(500, 740); // Set the exact size
+        // this.platform6.body.setAllowGravity(false);
+        // this.platform6.body.setImmovable(true);
+        // this.physics.add.collider(this.player, this.platform6);
+        // this.platform6.body.setOffset(0,230);
+        // this.platform6.setDepth(-1);
 
-        this.platform6 = this.add.rectangle(5500, 500, 500, 50, 0x00ff00);
-        this.physics.add.existing(this.platform6, true); // true makes it static
-        this.physics.add.collider(this.player, this.platform6);
-        // super.graphics.fillStyle(0x00ff0f, 1);
-        // super.graphics.fillRectShape(this.platform1);
+        // this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x808080);
+        // this.physics.add.existing(this.platform3, true); // true makes it static
+        // this.physics.add.collider(this.player, this.platform3);
         
         
         // Start the opening story sequence
