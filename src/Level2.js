@@ -79,7 +79,7 @@ class Level2 extends BaseScene {
                     delay: 500,
                     onComplete: () => {
                         raccoon.destroy(); // Raccoon despawns
-                        this.enablePlayerMovement();
+                        super.enablePlayerMovement();
                     }
                 }
             ]
@@ -91,14 +91,6 @@ class Level2 extends BaseScene {
  
     }
 
-    enablePlayerMovement() {
-        this.player.body.setVelocityX(100);
-    }
-
-    disablePlayerMovement() {
-        this.player.body.setVelocityX(0);
-    }
-
     update(time, delta) {
        super.update(time, delta);
 
@@ -106,7 +98,7 @@ class Level2 extends BaseScene {
 
     reachGoal(player, goal) {
         super.reachGoal(player, goal);
-        this.disablePlayerMovement();
+        super.disablePlayerMovement();
         //end the music and start the next level
         this.bgm.stop();
         this.scene.start('Level3');
