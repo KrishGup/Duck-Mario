@@ -2,6 +2,7 @@ import Level1 from './Level1.js';
 import Level1A from './Level1A.js';
 // import LevelB from './Level1B.js';
 import Level2 from './Level2.js';
+import Level3 from './Level3.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -15,7 +16,7 @@ const config = {
             debug: false
         }
     },
-    scene: [Level1, Level2],
+    scene: [Level1, Level2, Level3],
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.NO_CENTER,
