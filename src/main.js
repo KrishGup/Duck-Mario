@@ -1,4 +1,6 @@
 import Level1 from './Level1.js';
+import Level1A from './Level1A.js';
+// import LevelB from './Level1B.js';
 import Level2 from './Level2.js';
 
 const config = {
@@ -13,7 +15,7 @@ const config = {
             debug: false
         }
     },
-    scene: [Level1, Level2],
+    scene: [Level1, Level1A, Level2],
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.NO_CENTER,

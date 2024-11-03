@@ -88,7 +88,7 @@ class BaseScene extends Phaser.Scene {
 
     update(time, delta) {
         // Character moves to the right by default
-        if (this.player.body.velocity.x !== 0) {
+        if (this.player.body.velocity.x !== 1) {
             // Jump logic
             if (this.player.body.touching.down) {
                 this.isOnGround = true;
@@ -128,11 +128,11 @@ class BaseScene extends Phaser.Scene {
     }
 
     enablePlayerMovement() {
-        this.player.body.setVelocityX(200);
+        this.player.body.setVelocityX(600);
     }
 
     disablePlayerMovement() {
-        this.player.body.setVelocityX(0);
+        this.player.body.setVelocityX(1);
     }
 
     addEnemy(x, y, texture, speed) {
