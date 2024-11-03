@@ -19,13 +19,17 @@ class BaseScene extends Phaser.Scene {
 
         this.enemies = this.add.group();
 
+        // Coyote time variables
+        this.coyoteTime = 0;
+        this.coyoteTimeDuration = 200; // milliseconds
+
         //bind jump sound
         this.jumpSound = this.sound.add('jump');
         //bind win sound
         this.winSound = this.sound.add('win');
         this.deathSound = this.sound.add('death');
         // Create a simple platform
-        this.platform = this.add.rectangle(3000, 500, 6000, 50, 0x00ff00);
+        this.platform = this.add.rectangle(30, 500, 2250, 50, 0x00ff00);
         this.physics.add.existing(this.platform, true); // true makes it static
 
         // Add the duck character
@@ -33,6 +37,13 @@ class BaseScene extends Phaser.Scene {
         this.player.setScale(0.5);
         this.physics.add.existing(this.player, false);
         this.player.body.setCollideWorldBounds(true);
+
+        this.player.body.onWorldBounds = true;
+        this.physics.world.on('worldbounds', (body) => {
+            if (body.gameObject === this.player) {
+                this.death();
+            }
+        });
 
         // Enable collision detection between player and platform
         this.physics.add.collider(this.player, this.platform);
@@ -81,8 +92,20 @@ class BaseScene extends Phaser.Scene {
         // Jump logic
         if (this.player.body.velocity.x !== 0) {
             // Jump logic
-            if (this.jumpKey.isDown && this.player.body.touching.down) {
+            // Check if the player is on the ground
+            if (this.player.body.touching.down) {
+                this.isOnGround = true;
+                this.coyoteTime = this.coyoteTimeDuration;
+            } else {
+                this.isOnGround = false;
+                if (this.coyoteTime > 0) {
+                    this.coyoteTime -= delta;
+                }
+            }
+            
+            if (this.jumpKey.isDown && (this.player.body.touching.down || this.coyoteTime > 0)) {
                 this.player.body.setVelocityY(-400);
+                this.coyoteTime = 0; // Reset coyote time after jumping
                 this.jumpSound.play();
             }
             // Attack logic (for now, just log to console)

@@ -26,18 +26,45 @@ class Level1 extends BaseScene {
         this.bgm.play();
 
 
-                // Add thorns
-                this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
-                this.thorns2 = this.add.image(800, 450, 'thorns').setScale(0.25);
+        // Add thorns
+        this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
+        this.thorns2 = this.add.image(850, 450, 'thorns').setScale(0.25);
                 
-                this.physics.add.existing(this.thorns1, true);
-                this.physics.add.existing(this.thorns2, true);
+        this.physics.add.existing(this.thorns1, true);
+        this.physics.add.existing(this.thorns2, true);
         
-                // Enable collision detection between player and thorns
-                this.physics.add.collider(this.player, this.thorns1, super.playerHIt, null, this);
-                this.physics.add.collider(this.player, this.thorns2, super.playerHIt, null, this);
+        // Enable collision detection between player and thorns
+        this.physics.add.collider(this.player, this.thorns1, super.playerHIt, null, this);
+        this.physics.add.collider(this.player, this.thorns2, super.playerHIt, null, this);
 
-        // Create a goal specific to Level 1
+        // Create a goal specific to Level 
+        
+        //set up platforms
+        this.platform1 = this.add.rectangle(1750, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform1, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform1);
+
+        this.platform2 = this.add.rectangle(2500, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform2, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform2);
+
+        this.platform3 = this.add.rectangle(3250, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform3, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform3);
+
+        this.platform4 = this.add.rectangle(4000, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform4, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform4);
+
+        this.platform5 = this.add.rectangle(4750, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform5, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform5);
+
+        this.platform6 = this.add.rectangle(5500, 500, 500, 50, 0x00ff00);
+        this.physics.add.existing(this.platform6, true); // true makes it static
+        this.physics.add.collider(this.player, this.platform6);
+        // super.graphics.fillStyle(0x00ff0f, 1);
+        // super.graphics.fillRectShape(this.platform1);
         
         
         // Start the opening story sequence
