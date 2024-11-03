@@ -27,7 +27,7 @@ class Level3 extends BaseScene {
         this.bgm.play();
 
         // Add thorns
-        this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
+        this.thorns1 = this.add.image(350, 450, 'thorns').setScale(0.25);
         this.physics.add.existing(this.thorns1, true);
         this.physics.add.collider(this.player, this.thorns1, super.playerHIt, null, this);
 
@@ -135,7 +135,7 @@ class Level3 extends BaseScene {
     }
 
     opening() {
-        const storyText = this.add.text(100, 300, 'The final challenge awaits...', {
+        const storyText = this.add.text(200, 300, 'The final challenge awaits...', {
             fontSize: '20px',
             fill: '#ffffff',
             align: 'center',
@@ -181,7 +181,11 @@ class Level3 extends BaseScene {
         super.reachGoal(player, goal);
         super.disablePlayerMovement();
         this.bgm.stop();
-        console.log('Congratulations! You have completed the game!');
+
+        this.add.text(5000, 200, 'Congratulations! You have completed the game!', {
+            fontSize: '26px',
+            fill: '#fff'
+        });
     }
 }
 
