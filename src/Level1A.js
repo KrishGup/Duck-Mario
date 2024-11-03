@@ -14,6 +14,11 @@ class Level1A extends BaseScene {
 
     create() {
         super.create();
+        // reframe the camera to be centered 300px up
+        this.cameras.main.setDeadzone(400, 300);
+        this.cameras.main.startFollow(this.player, true, 0.5, 0.5);
+        this.cameras.main.setBounds(0, 0, 800, 600);
+        
 
         // Play background music
         this.bgmHouse = this.sound.add('bgmHouse', { loop: true });
@@ -23,10 +28,16 @@ class Level1A extends BaseScene {
         this.houseInterior = this.add.image(400, 300, 'house2Interior');
         this.houseInterior.setDisplaySize(800, 600);
         this.houseInterior.setDepth(0);
-
         // Move character to depth 1
         this.player.setDepth(1);
-        
+
+        // Add invisible vertical wall to stop player on queue
+        this.wall = this.add.rectangle(430, 300, 50, 800, 0x000000);
+        this.physics.add.existing(this.wall, true); // true makes it static
+        this.physics.add.collider(this.player, this.wall);
+        this.wall.setDepth(-31);
+
+
 
         // Start the opening story sequence
         this.opening();
