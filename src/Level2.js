@@ -108,6 +108,11 @@ class Level2 extends BaseScene {
         // });
     }
 
+    death(){
+        super.death();
+        this.bgm.stop();
+    }
+
     opening() {
         const storyText = this.add.text(100, 300, 'In search of the egg, It left once again...', {
             fontSize: '20px',
