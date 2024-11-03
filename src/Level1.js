@@ -16,7 +16,6 @@ class Level1 extends BaseScene {
         // this.load.image('nest', 'assets/nest.png');
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
-        this.load.image('log', 'assets/log.png');
         this.load.image('platform', 'assets/Mushroom Forest Background/final 1000x740px/mushroom forest bottom_1000x740px.png');
         this.load.image("background2", "assets/Mushroom Forest Background/final 1000x740px/mushroom forest top_1000x740px.png");
         this.load.image("closedHouse", "assets/houseClosed.png");

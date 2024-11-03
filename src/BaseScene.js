@@ -14,6 +14,7 @@ class BaseScene extends Phaser.Scene {
         this.load.audio('win', 'assets/Sounds/win-sound.wav');
         this.load.image('soundWave', 'assets/Attack_sprite.png');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
+        this.load.image('log', 'assets/log.png');
     }
 
     create() {
