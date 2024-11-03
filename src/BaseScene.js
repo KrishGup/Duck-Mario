@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js';
-
+// TODO: Implement controller support
 class BaseScene extends Phaser.Scene {
     constructor(key) {
         super({ key });
@@ -82,7 +82,7 @@ class BaseScene extends Phaser.Scene {
         if (this.player.body.velocity.x !== 0) {
             // Jump logic
             if (this.jumpKey.isDown && this.player.body.touching.down) {
-                this.player.body.setVelocityY(-300);
+                this.player.body.setVelocityY(-400);
                 this.jumpSound.play();
             }
             // Attack logic (for now, just log to console)
@@ -96,6 +96,14 @@ class BaseScene extends Phaser.Scene {
         this.enemies.children.iterate((enemy) => {
             enemy.update();
         });
+    }
+
+    enablePlayerMovement() {
+        this.player.body.setVelocityX(200);
+    }
+
+    disablePlayerMovement() {
+        this.player.body.setVelocityX(0);
     }
 
     addEnemy(x, y, texture, speed) {
