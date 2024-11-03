@@ -44,7 +44,14 @@ class Level1 extends BaseScene {
         this.opening();
 
         // Add Enemy
-        this.addEnemy(1000, 100, 'raccoon', 100);
+        this.addEnemy(1000, 100, 'raccoon', -10);
+
+        this.enemies.children.iterate((enemy) => {
+            enemy.body.setSize(enemy.width * 0.6, enemy.height * 0.52);
+            enemy.body.setOffset(enemy.width * 0.25, enemy.height * 0.25);
+            enemy.setCollideWorldBounds(true);
+            enemy.setScale(0.5);
+        });
     }
 
     opening() {

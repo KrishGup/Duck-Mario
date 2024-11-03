@@ -7,10 +7,11 @@ class BaseScene extends Phaser.Scene {
 
     preload() {
         // Preload common assets
-        this.load.audio('death', 'assets/Sounds/win-sound.wav');
+        this.load.audio('death', 'assets/Sounds/Death Sounds/Death 2.wav');
         this.load.audio('jump', 'assets/Sounds/jump.wav');
         this.load.audio('quack', 'assets/Sounds/quack.mp3');
         this.load.audio('win', 'assets/Sounds/win-sound.wav');
+        this.load.image('soundWave', 'assets/Attack_sprite.png');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
@@ -88,6 +89,7 @@ class BaseScene extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
                 this.quackSound.play();
                 console.log('Attack!');
+                this.quackAttack();
             }
         }
 
@@ -111,6 +113,41 @@ class BaseScene extends Phaser.Scene {
 
     playerHIt(player, enemy) {
         this.death();
+    }
+
+    quackAttack() {
+
+        const soundWave = this.physics.add.sprite(this.player.x + 100, this.player.y, 'soundWave');
+        soundWave.setScale(0.5);
+        const quackRange = 200;
+        this.tweens.add({
+            targets: soundWave,
+            scaleX: 1,
+            scaleY: 1,
+            alpha: 0,
+            duration: 500,
+            onComplete: () => {
+                soundWave.destroy();
+            }
+        });
+
+        this.enemies.children.iterate((enemy) => {
+            if (Phaser.Math.Distance.Between(this.player.x, this.player.y, enemy.x, enemy.y) < quackRange) {
+                this.killEnemy(enemy);
+            }
+        });
+    }
+
+
+    killEnemy(enemy) {
+        enemy.setTint(0xff0000);
+        enemy.body.setVelocity(0, -300);
+        enemy.body.setAngularVelocity(360);
+        enemy.body.checkCollision.none = true; // Make the enemy untouchable
+
+        this.time.delayedCall(2000, () => {
+            enemy.destroy();
+        });
     }
 
     death() {
