@@ -1,5 +1,5 @@
 {
-    "title": "(string) TITLE OF YOUR GAME",
+    "title": "(string) Quackers Quest",
     "author": "(string) Krish, Jaaron, Evan",
     "summary": "(string) SUMMARY OF YOUR GAME",
     "release_date": "2024-03-11",
@@ -9,6 +9,6 @@
     ],
     "times_played": 0,
     "last_played": 0,
-    "cover_image": "(string) .png/.jpg RELATIVE PATH TO THE COVER IMAGE OF YOUR GAME",
+    "cover_image": "(string) assets/Quackers-Quest-Cover.png",
     "exec": "https://krishgup.github.io/Duck-Mario/game.html"
 }
