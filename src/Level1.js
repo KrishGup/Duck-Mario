@@ -4,6 +4,7 @@ class Level1 extends BaseScene {
     constructor() {
         super('Level1');
         this.goalReached = false; // Add a flag to track goal reach status
+        this.notYetOpened = true; // Add a flag to track if the house has been opened
     }
 
     preload() {
@@ -21,16 +22,17 @@ class Level1 extends BaseScene {
         this.load.image("closedHouse", "assets/houseClosed.png");
         this.load.image("openHouse", "assets/houseOpen.png");
         this.load.image('thorns', 'assets/thornbush.png');
+        this.load.image('house2Interior', 'assets/houseInterior.png');
     }
 
     create() {
         super.create();
-        
         // Play background music
         this.bgm = this.sound.add('bgm', { loop: true });
         this.bgm.play();
 
         // Create a goal specific to Level 
+
         
         //set up platforms
         this.platform1 = this.physics.add.sprite(1750, 600, 'platform');
@@ -170,11 +172,16 @@ class Level1 extends BaseScene {
         super.update(time, delta);
         // if user is at the closed house and presses space, open the house
         this.input.keyboard.on('keydown-SPACE', () => {
-            if (this.player.x > 5400 && this.player.x < 5800) {
+            if (this.player.x > 5400 && this.player.x < 5800 && this.notYetOpened) {
+                this.notYetOpened = false;
                 this.closedHouse.setVisible(false);
                 this.openHouse.setVisible(true);
                 this.time.delayedCall(2000, () => {
-                    this.reachGoal(this.player, this.goal);
+                    //Remove the phsyics collision between the player and the closed house
+                    this.physics.world.removeCollider(this.physics.add.collider(this.player, this.closedHouse));
+                    this.closedHouse.destroy();
+                    //Make character move to depth 1
+                    this.player.setDepth(-2);
                 });
             }
         });
