@@ -7,6 +7,7 @@ class BaseScene extends Phaser.Scene {
         // Preload common assets
         this.load.audio('jump', 'assets/Sounds/jump.wav');
         this.load.audio('quack', 'assets/Sounds/quack.mp3');
+        this.load.audio('win', 'assets/Sounds/win-sound.wav');
         this.load.image('duck', 'assets/Iconic Animals (Complete Version)/Cartoon (With Stroke)/spr_cartoon_duck_with_stroke.png');
     }
 
@@ -14,9 +15,8 @@ class BaseScene extends Phaser.Scene {
 
         //bind jump sound
         this.jumpSound = this.sound.add('jump');
-
-        
-        
+        //bind win sound
+        this.winSound = this.sound.add('win');
 
         // Create a simple platform
         this.platform = this.add.rectangle(400, 500, 800, 50, 0x00ff00);
@@ -73,6 +73,7 @@ class BaseScene extends Phaser.Scene {
 
     reachGoal(player, goal) {
         console.log('Goal reached!');
+        this.sound.play('win');
         // Transition to the next level
         //this.scene.start('Level2');
     }

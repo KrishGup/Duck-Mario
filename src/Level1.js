@@ -101,6 +101,7 @@ class Level1 extends BaseScene {
     }
 
     reachGoal(player, goal) {
+        super.reachGoal(player, goal);
         this.disablePlayerMovement();
         this.bgm.stop();
         this.scene.start('Level2');

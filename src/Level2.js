@@ -74,11 +74,27 @@ class Level2 extends BaseScene {
         });
     }
 
+    update(time, delta) {
+        super.update(time, delta);
+ 
+    }
+
     enablePlayerMovement() {
         this.player.body.setVelocityX(100);
     }
 
+    disablePlayerMovement() {
+        this.player.body.setVelocityX(0);
+    }
+
+    update(time, delta) {
+       super.update(time, delta);
+
+    }
+
     reachGoal(player, goal) {
+        super.reachGoal(player, goal);
+        this.disablePlayerMovement();
         //end the music and start the next level
         this.bgm.stop();
         this.scene.start('Level3');
