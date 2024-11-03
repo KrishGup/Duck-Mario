@@ -9,10 +9,8 @@ HACK.COMS 24-Hour Hackathon
 <li>Button to jump</li>
 <li>Purple Black Gold Color scheme</li>
 <li>Embedded in a website</li>
-<li>Point system.</li>
 <li>Win/loose</li>
-<li>sidescroller</li>
+<li>Dynamic camera</li>
 </ul>
-
-
-
+# Try it out
+<a href="https://quackathon.co">quackathon.co</a>
