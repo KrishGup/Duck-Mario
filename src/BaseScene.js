@@ -1,4 +1,8 @@
 import Enemy from './Enemy.js';
+export let gamePad;
+window.addEventListener("gamepadconnected", function(e) {
+    gamePad = true;
+});
 // TODO: Implement controller support
 class BaseScene extends Phaser.Scene {
     constructor(key) {
@@ -105,8 +109,14 @@ class BaseScene extends Phaser.Scene {
                     this.coyoteTime -= delta;
                 }
             }
-
-            if (this.jumpKey.isDown && (this.player.body.touching.down || this.coyoteTime > 0)) {
+            if(gamePad){
+                if ((this.jumpKey.isDown || navigator.getGamepads()[0].buttons[0]['pressed']) && (this.player.body.touching.down || this.coyoteTime > 0)) {
+                    this.player.body.setVelocityY(-500);
+                    this.coyoteTime = 0; // Reset coyote time after jumping
+                    this.jumpSound.play();
+                    this.isJumping = true; // Set jumping flag when jump starts
+                }
+            }else if (this.jumpKey.isDown && (this.player.body.touching.down || this.coyoteTime > 0)) {
                 this.player.body.setVelocityY(-500);
                 this.coyoteTime = 0; // Reset coyote time after jumping
                 this.jumpSound.play();
@@ -120,7 +130,7 @@ class BaseScene extends Phaser.Scene {
             }
 
             // Attack logic (for now, just log to console)
-            if (Phaser.Input.Keyboard.JustDown(this.attackKey)) {
+            if (Phaser.Input.Keyboard.JustDown(this.attackKey) || (gamePad && navigator.getGamepads()[0].buttons[1]['pressed'])) {
                 this.quackSound.play();
                 console.log('Attack!');
                 this.quackAttack();
