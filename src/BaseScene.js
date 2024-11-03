@@ -129,6 +129,13 @@ class BaseScene extends Phaser.Scene {
                 this.isJumping = false; // Reset jumping flag
             }
 
+            if (gamePad){
+                if(this.isJumping && navigator.getGamepads()[0].buttons[0]['pressed']){
+                    this.player.body.setVelocityY(this.player.body.velocity.y * 0.5); // Reduce upward velocity when jump key is released
+                    this.isJumping = false; // Reset jumping flag
+                }
+            }
+
             // Attack logic (for now, just log to console)
             if (Phaser.Input.Keyboard.JustDown(this.attackKey) || (gamePad && navigator.getGamepads()[0].buttons[1]['pressed'])) {
                 this.quackSound.play();
