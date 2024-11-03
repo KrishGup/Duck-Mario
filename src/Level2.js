@@ -15,7 +15,7 @@ class Level2 extends BaseScene {
         this.load.image('egg', 'assets/white.png');
         this.load.image('raccoon', 'assets/racoon.png');
     }
-    
+
     create() {
         super.create();
         this.cameras.main.setBackgroundColor('#3c3c58');
@@ -25,9 +25,9 @@ class Level2 extends BaseScene {
         this.bgm.play();
 
         // Add thorns
-        this.thorns1 = this.add.image(300, 500, 'thorns').setScale(0.5);
-        this.thorns2 = this.add.image(600, 500, 'thorns').setScale(0.5);
-        
+        this.thorns1 = this.add.image(300, 450, 'thorns').setScale(0.25);
+        this.thorns2 = this.add.image(850, 450, 'thorns').setScale(0.25);
+
         this.physics.add.existing(this.thorns1, true);
         this.physics.add.existing(this.thorns2, true);
 
@@ -43,6 +43,16 @@ class Level2 extends BaseScene {
         this.physics.add.overlap(this.player, this.goal, this.reachGoal, null, this);
 
         this.opening();
+
+        // Add Enemy
+        this.addEnemy(1000, 100, 'raccoon', -10);
+
+        this.enemies.children.iterate((enemy) => {
+            enemy.body.setSize(enemy.width * 0.6, enemy.height * 0.52);
+            enemy.body.setOffset(enemy.width * 0.25, enemy.height * 0.25);
+            enemy.setCollideWorldBounds(true);
+            enemy.setScale(0.5);
+        });
     }
 
     opening() {
@@ -61,7 +71,7 @@ class Level2 extends BaseScene {
         const egg = this.add.sprite(90, 465, 'egg').setScale(0.5);
 
         this.player.body.setVelocityX(0);
-        
+
         // Story animation: Raccoon approaches the duck, steals the egg, and runs off
         this.tweens.timeline({
             targets: raccoon,
@@ -88,11 +98,11 @@ class Level2 extends BaseScene {
 
     update(time, delta) {
         super.update(time, delta);
- 
+
     }
 
     update(time, delta) {
-       super.update(time, delta);
+        super.update(time, delta);
 
     }
 
@@ -102,7 +112,7 @@ class Level2 extends BaseScene {
         //end the music and start the next level
         this.bgm.stop();
         this.scene.start('Level3');
-    }   
+    }
 
 }
 
